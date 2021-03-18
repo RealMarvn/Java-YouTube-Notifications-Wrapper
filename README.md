@@ -26,6 +26,8 @@ The following example shows you how to get notifications, subscribing to new cha
 ```
 Note that maximum lease time is 10 days, this will require you to create your own re-subscription scheduler. There is also a method you can use which is called #renewSubscriptions().
 
+# 💡 How to install the wrapper
+You just have to copy the ytnotificationwrapper package and put this into your project. This is my first official wrapper so Gradle and Maven will release a bit later.
 
 # 📋 Libarys which are used in this Wrapper
 - SparkJava
