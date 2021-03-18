@@ -25,3 +25,11 @@ The following example shows you how to get notifications, subscribing to new cha
         }, port);
 ```
 Note that maximum lease time is 10 days, this will require you to create your own re-subscription scheduler. There is also a method you can use which is called #renewSubscriptions().
+
+
+# 📋 Libarys which are used in this Wrapper
+- SparkJava
+- Lombok
+- jackson-dataformat-xml
+- woodstox-core
+
