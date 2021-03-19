@@ -2,6 +2,12 @@ package ytnotificationwrapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.google.gson.JsonObject;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,6 +26,7 @@ public class YouTubeSubscribeWrapper {
     private final Set<String> previousVideos = new HashSet<>();
 
     private static final String CALLBACK_PATH = "/pubsubcallback";
+    private final CloseableHttpClient httpClient = HttpClients.createDefault();
     ObjectMapper xmlMapper = new XmlMapper();
 
     public YouTubeSubscribeWrapper() { }
@@ -48,6 +55,53 @@ public class YouTubeSubscribeWrapper {
             feedConsumer.accept(replaceXml(value));
             return "";
         });
+    }
+
+    /**
+     * Clears the cache of duplicated videos
+     */
+    public void clearCache(){
+        previousVideos.clear();
+    }
+    /**
+     * Is getting the Data from a User by its Name
+     *
+     * @param googleAuthToken token to be allowed to search for the data
+     * @param name string to get the data of a user
+     */
+    public UserData getUserDataByName(String name, String googleAuthToken) throws IOException {
+        String topicUrl = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=" + name + "&key=" + googleAuthToken + "&format=json";
+        HttpGet request = new HttpGet(topicUrl);
+        UserData finalUserData = new UserData();
+        CloseableHttpResponse response = httpClient.execute(request);
+        JsonObject jsonObject = com.google.gson.JsonParser.parseString(EntityUtils.toString(response.getEntity())).getAsJsonObject();
+        if (jsonObject.get("items").getAsJsonArray().get(0).getAsJsonObject().get("id").toString() == null) {
+            return null;
+        } else {
+            finalUserData.setId(jsonObject.get("items").getAsJsonArray().get(0).getAsJsonObject().get("id").toString().replace("\"", ""));
+            finalUserData.setName(jsonObject.get("items").getAsJsonArray().get(0).getAsJsonObject().get("snippet").getAsJsonObject().get("title").toString().replace("\"", ""));
+            return finalUserData;
+        }
+    }
+    /**
+     * Is getting the Data from a User by its ID
+     *
+     * @param googleAuthToken token to be allowed to search for the data
+     * @param id string to get the data of a user
+     */
+    public UserData getUserDataByID(String id,String googleAuthToken) throws IOException {
+        String topicUrl = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=" + id + "&key=" + googleAuthToken + "&format=json";
+        HttpGet request = new HttpGet(topicUrl);
+        CloseableHttpResponse response = httpClient.execute(request);
+        UserData finalUserData = new UserData();
+        JsonObject jsonObject = com.google.gson.JsonParser.parseString(EntityUtils.toString(response.getEntity())).getAsJsonObject();
+        if (jsonObject.get("items").getAsJsonArray().get(0).getAsJsonObject().get("id").toString() == null) {
+            return null;
+        } else {
+            finalUserData.setName(jsonObject.get("items").getAsJsonArray().get(0).getAsJsonObject().get("snippet").getAsJsonObject().get("title").toString().replace("\"", ""));
+            finalUserData.setId(jsonObject.get("items").getAsJsonArray().get(0).getAsJsonObject().get("id").toString().replace("\"", ""));
+            return finalUserData;
+        }
     }
 
     /**
