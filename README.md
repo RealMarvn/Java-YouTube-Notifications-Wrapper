@@ -28,6 +28,7 @@ The following example shows you how to get notifications, subscribing to new cha
 ```
 Note that maximum lease time is 10 days, this will require you to create your own re-subscription scheduler. There is also a method you can use which is called #renewSubscriptions().
 
+
 # 📒 GetUserData
 To get the user data from a specific youtube channel you need to use one of these two methods. You also require a Google API token which you can get at the Google Developer hub.
 ```Java
@@ -37,6 +38,7 @@ To get the user data from a specific youtube channel you need to use one of thes
 ```
 With the API token you can search up these informations about 10.000 times a day. 
 NOTE: The ID of a channel is always 24 characters long and starts with UC.
+
 
 # 🔧 Cache
 If you want to keep the cache clean you can just call the clearCache method.
@@ -48,8 +50,10 @@ YouTube will sometimes send multiple times the same data.
 Thats why there is a cache.
 The cache saves the VideoIDs from every video so nothing gets posted multiple times.
 
+
 # 💡 How to install the wrapper
 You just have to copy the ytnotificationwrapper package and put this into your project. This is my first official wrapper so Gradle and Maven will release a bit later.
+
 
 # 📋 Libarys which are used in this Wrapper
 - SparkJava
