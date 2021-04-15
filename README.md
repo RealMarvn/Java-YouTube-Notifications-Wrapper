@@ -83,7 +83,7 @@ If you want to keep the cache clean you can just call the clearCache method.
 ```
 YouTube will sometimes send multiple times the same data.
 Thats why there is a cache.
-The cache saves the VideoIDs from every video so nothing gets posted multiple times.
+The cache saves the VideoIDs from every video so nothing gets triggerd multiple times.
 
 [Discord Badge]:
 https://shields.javacord.org/discord/374907103539625986.svg?label=Discord
