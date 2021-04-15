@@ -28,8 +28,28 @@ The following example shows you how to get notifications, subscribing to new cha
 ```
 Note that maximum lease time is 10 days, this will require you to create your own re-subscription scheduler. There is also a method you can use which is called #renewSubscriptions().
 
+#📦 Download / Installation
+The recommended way to get the wrapper is to use a build manager, like Gradle or Maven.
+Gradle
+```java
+ repositories { 
+    mavenCentral()
+    maven { url "https://jitpack.io" } 
+    }
+    
+dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notifications-Wrapper:v1.0.2' }
+```
 
-# 📒 GetUserData
+Maven
+```java
+     <dependency>
+         <groupId>com.github.RealMarvn</groupId>
+         <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
+         <version>v1.0.2</version>
+     </dependency>
+```
+
+#📒 GetUserData
 To get the user data from a specific youtube channel you need to use one of these two methods. You also require a Google API token which you can get at the Google Developer hub.
 ```Java
     YouTubeSubscribeWrapper youTubeSubscribeWrapper = new YouTubeSubscribeWrapper();
@@ -40,7 +60,7 @@ With the API token you can search up these informations about 10.000 times a day
 NOTE: The ID of a channel is always 24 characters long and starts with UC.
 
 
-# 🔧 Cache
+##🔧 Cache
 If you want to keep the cache clean you can just call the clearCache method.
 ```Java
     YouTubeSubscribeWrapper youTubeSubscribeWrapper = new YouTubeSubscribeWrapper();
@@ -49,29 +69,3 @@ If you want to keep the cache clean you can just call the clearCache method.
 YouTube will sometimes send multiple times the same data.
 Thats why there is a cache.
 The cache saves the VideoIDs from every video so nothing gets posted multiple times.
-
-
-# 💡 How to install the wrapper
-You just have to copy the ytnotificationwrapper package and put this into your project. This is my first official wrapper so Gradle and Maven will release a bit later.
-
-
-#📦 Download / Installation
-The recommended way to get the wrapper is to use a build manager, like Gradle or Maven.
-- Gradle
-```java
- repositories { 
-    mavenCentral()
-    maven { url "https://jitpack.io" } 
-    }
-    
-dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notifications-Wrapper:v1.0.2' }
-```
-
-- Maven
-```java
-     <dependency>
-         <groupId>com.github.RealMarvn</groupId>
-         <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
-         <version>v1.0.2</version>
-     </dependency>
-```
