@@ -43,7 +43,7 @@ The following example shows you how to get notifications, subscribing to new cha
 
     YouTubeSubscribeWrapper youTubeSubscribeWrapper = new YouTubeSubscribeWrapper();
     youTubeSubscribeWrapper.subscribe("http://example.com", "UCJhjE7wbdYAae1G25m0tHAA", leaseSeconds);
-    youTubeSubscribeWrapper.renewSubscriptions("http://example.com", channelIdList,  864000);
+    youTubeSubscribeWrapper.renewSubscriptions("http://example.com", channelIdList,  leaseSeconds);
     youTubeSubscribeWrapper.start(feed -> {
         if(feed.isNewVideo())
             System.out.println("NEW VIDEO!");
