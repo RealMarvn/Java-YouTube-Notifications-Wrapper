@@ -20,16 +20,16 @@ Gradle
     maven { url "https://jitpack.io" } 
     }
     
-dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notifications-Wrapper:v1.0.2' }
+dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notifications-Wrapper:v1.0.3' }
 ```
 
 Maven
 ```java
-     <dependency>
-         <groupId>com.github.RealMarvn</groupId>
-         <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
-         <version>v1.0.2</version>
-     </dependency>
+        <dependency>
+            <groupId>com.github.RealMarvn</groupId>
+            <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
+            <version>v1.0.3</version>
+        </dependency>
 ```
 
  
