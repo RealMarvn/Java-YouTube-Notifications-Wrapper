@@ -12,6 +12,7 @@ This is a simple wrapper for the YouTube Data API v3 notifications. As there are
 
 # 📦 Download / Installation
 The recommended way to get the wrapper is to use a build manager, like Gradle or Maven.
+
 Gradle
 ```java
  repositories { 
