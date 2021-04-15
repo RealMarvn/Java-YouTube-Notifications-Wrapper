@@ -8,6 +8,11 @@
     <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
     <version>v1.0.1</version>
 
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
     <name>java-youtube-data-notification-wrapper</name>
     <description>This is a wrapper for the yt data subscribe notification api</description>
     <url>https://github.com/RealMarvn/java-youtube-data-notification-wrapper</url>
