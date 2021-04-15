@@ -81,7 +81,7 @@ Thats why there is a cache.
 The cache saves the VideoIDs from every video so nothing gets posted multiple times.
 
 [Discord Badge]:
-https://shields.javacord.org/discord/534420861294346255.svg?label=Discord
+https://shields.javacord.org/discord/374907103539625986.svg?label=Discord
 [Supported Java Versions Badge]:
 https://shields.javacord.org/badge/Supported%20Java%20Versions-Java9+-lightgrey.svg
 [Latest Release]:
