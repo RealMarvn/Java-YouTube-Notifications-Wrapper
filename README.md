@@ -25,11 +25,11 @@ dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notificati
 
 Maven
 ```java
-        <dependency>
-            <groupId>com.github.RealMarvn</groupId>
-            <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
-            <version>v1.0.3</version>
-        </dependency>
+<dependency>
+    <groupId>com.github.RealMarvn</groupId>
+    <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
+    <version>v1.0.3</version>
+</dependency>
 ```
 
  
