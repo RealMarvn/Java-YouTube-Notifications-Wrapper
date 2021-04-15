@@ -3,6 +3,7 @@ package ytnotificationwrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.gson.JsonObject;
+import io.javalin.Javalin;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -19,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.Consumer;
 
-import static spark.Spark.*;
 
 public class YouTubeSubscribeWrapper {
 
@@ -28,8 +28,10 @@ public class YouTubeSubscribeWrapper {
     private static final String CALLBACK_PATH = "/pubsubcallback";
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     ObjectMapper xmlMapper = new XmlMapper();
+    private Javalin server = Javalin.create();
 
-    public YouTubeSubscribeWrapper() { }
+    public YouTubeSubscribeWrapper() {
+    }
 
     /**
      * Starts the callback HTTP server and provides feed to consumer
@@ -38,36 +40,32 @@ public class YouTubeSubscribeWrapper {
      * @param feedConsumer consumer to provide incoming feeds to
      */
     public void start(Consumer<FinalFeed> feedConsumer, int port) {
-        port(port);
-        get(CALLBACK_PATH, (req, res) -> {
-            String challenge = req.queryParams("hub.challenge");
-            if (challenge != null)
-                return challenge; // Return back challenge to verify subscription
-
-            return "";
+        server.start(port);
+        server.get(CALLBACK_PATH, ctx -> {
+            ctx.queryParams("hub.challenge"); // Return back challenge to verify subscription
         });
 
-        post(CALLBACK_PATH, (req, res) -> {
-            String body = req.body();
+        server.post(CALLBACK_PATH, ctx -> {
+            String body = ctx.body();
             VideoFeed value = xmlMapper.readValue(body, VideoFeed.class);
-            if (replaceXml(value) == null) return "";
+            if (replaceXml(value) == null) return;
 
             feedConsumer.accept(replaceXml(value));
-            return "";
         });
     }
 
     /**
      * Clears the cache of duplicated videos
      */
-    public void clearCache(){
+    public void clearCache() {
         previousVideos.clear();
     }
+
     /**
      * Is getting the Data from a User by its Name
      *
      * @param googleAuthToken token to be allowed to search for the data
-     * @param name string to get the data of a user
+     * @param name            string to get the data of a user
      */
     public UserData getUserDataByName(String name, String googleAuthToken) throws IOException {
         String topicUrl = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forUsername=" + name + "&key=" + googleAuthToken + "&format=json";
@@ -83,13 +81,14 @@ public class YouTubeSubscribeWrapper {
             return finalUserData;
         }
     }
+
     /**
      * Is getting the Data from a User by its ID
      *
      * @param googleAuthToken token to be allowed to search for the data
-     * @param id string to get the data of a user
+     * @param id              string to get the data of a user
      */
-    public UserData getUserDataByID(String id,String googleAuthToken) throws IOException {
+    public UserData getUserDataByID(String id, String googleAuthToken) throws IOException {
         String topicUrl = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=" + id + "&key=" + googleAuthToken + "&format=json";
         HttpGet request = new HttpGet(topicUrl);
         CloseableHttpResponse response = httpClient.execute(request);
@@ -127,22 +126,22 @@ public class YouTubeSubscribeWrapper {
     }
 
     public void renewSubscriptions(String callbackUrl, List<String> channelIds, long leaseSeconds) {
-            channelIds.forEach(channelId -> {
-                Map<String, String> params = Map.of(
-                        "hub.callback", callbackUrl + CALLBACK_PATH,
-                        "hub.topic", "https://www.youtube.com/xml/feeds/videos.xml?channel_id=" + channelId,
-                        "hub.verify", "async",
-                        "hub.mode", "subscribe",
-                        "hub.verify_token", "",
-                        "hub.secret", "",
-                        "hub.lease_seconds", String.valueOf(leaseSeconds));
+        channelIds.forEach(channelId -> {
+            Map<String, String> params = Map.of(
+                    "hub.callback", callbackUrl + CALLBACK_PATH,
+                    "hub.topic", "https://www.youtube.com/xml/feeds/videos.xml?channel_id=" + channelId,
+                    "hub.verify", "async",
+                    "hub.mode", "subscribe",
+                    "hub.verify_token", "",
+                    "hub.secret", "",
+                    "hub.lease_seconds", String.valueOf(leaseSeconds));
 
-                try {
-                    doHttpFormRequest("https://pubsubhubbub.appspot.com/subscribe?", "POST", params);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            try {
+                doHttpFormRequest("https://pubsubhubbub.appspot.com/subscribe?", "POST", params);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
@@ -164,6 +163,14 @@ public class YouTubeSubscribeWrapper {
         finalFeed.setDatePublished(value.getEntry().getDatePublished());
         finalFeed.setDateUpdated(value.getEntry().getDateUpdated());
         return finalFeed;
+    }
+
+    /**
+     * Stops the HTTP Server
+     * this will deactivate the full wrapper
+     */
+    public void stopServer() {
+        server.stop();
     }
 
     /**
