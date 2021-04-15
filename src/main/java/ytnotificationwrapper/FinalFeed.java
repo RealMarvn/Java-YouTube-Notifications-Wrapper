@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Builder
 @Getter
@@ -18,8 +19,8 @@ public class FinalFeed {
     private String title;
     private String link;
     private Author author;
-    private Instant datePublished;
-    private Instant dateUpdated;
+    private Date datePublished;
+    private Date dateUpdated;
 
     @Setter
     private boolean newVideo;

@@ -17,6 +17,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -28,10 +29,7 @@ public class YouTubeSubscribeWrapper {
     private static final String CALLBACK_PATH = "/pubsubcallback";
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     ObjectMapper xmlMapper = new XmlMapper();
-    private Javalin server = Javalin.create();
-
-    public YouTubeSubscribeWrapper() {
-    }
+    private final Javalin server = Javalin.create();
 
     /**
      * Starts the callback HTTP server and provides feed to consumer
@@ -201,6 +199,11 @@ public class YouTubeSubscribeWrapper {
         try (OutputStream os = http.getOutputStream()) {
             os.write(out);
         }
+    }
+
+    private static boolean isSameDay(Date date1, Date date2) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        return fmt.format(date1).equals(fmt.format(date2));
     }
 
 }
