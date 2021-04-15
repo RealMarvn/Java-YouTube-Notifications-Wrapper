@@ -8,6 +8,32 @@
 
 This is a simple wrapper for the YouTube Data API v3 notifications. As there are many people dont want to deal with this api , I decided to create a wrapper for you :D. Hope you like it.
 
+ 
+
+# 📦 Download / Installation
+The recommended way to get the wrapper is to use a build manager, like Gradle or Maven.
+Gradle
+```java
+ repositories { 
+    mavenCentral()
+    maven { url "https://jitpack.io" } 
+    }
+    
+dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notifications-Wrapper:v1.0.2' }
+```
+
+Maven
+```java
+     <dependency>
+         <groupId>com.github.RealMarvn</groupId>
+         <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
+         <version>v1.0.2</version>
+     </dependency>
+```
+
+ 
+
+
 # 🎉 Basic Usage
 The following example shows you how to get notifications, subscribing to new channel and renewing the leasing time.
 ```Java
@@ -34,28 +60,6 @@ Note that maximum lease time is 10 days, this will require you to create your ow
 
  
 
-# 📦 Download / Installation
-The recommended way to get the wrapper is to use a build manager, like Gradle or Maven.
-Gradle
-```java
- repositories { 
-    mavenCentral()
-    maven { url "https://jitpack.io" } 
-    }
-    
-dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notifications-Wrapper:v1.0.2' }
-```
-
-Maven
-```java
-     <dependency>
-         <groupId>com.github.RealMarvn</groupId>
-         <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
-         <version>v1.0.2</version>
-     </dependency>
-```
-
- 
 
 # 📒 GetUserData
 To get the user data from a specific youtube channel you need to use one of these two methods. You also require a Google API token which you can get at the Google Developer hub.
