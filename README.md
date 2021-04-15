@@ -55,8 +55,23 @@ The cache saves the VideoIDs from every video so nothing gets posted multiple ti
 You just have to copy the ytnotificationwrapper package and put this into your project. This is my first official wrapper so Gradle and Maven will release a bit later.
 
 
-# 📋 Libarys which are used in this Wrapper
-- SparkJava
-- Lombok
-- jackson-dataformat-xml
-- woodstox-core
+#📦 Download / Installation
+The recommended way to get the wrapper is to use a build manager, like Gradle or Maven.
+- Gradle
+```java
+ repositories { 
+    mavenCentral()
+    maven { url "https://jitpack.io" } 
+    }
+    
+dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notifications-Wrapper:v1.0.2' }
+```
+
+- Maven
+```java
+     <dependency>
+         <groupId>com.github.RealMarvn</groupId>
+         <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
+         <version>v1.0.2</version>
+     </dependency>
+```
