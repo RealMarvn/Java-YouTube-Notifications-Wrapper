@@ -15,7 +15,7 @@ The recommended way to get the wrapper is to use a build manager, like Gradle or
 
 Gradle
 ```java
- repositories { 
+repositories { 
     mavenCentral()
     maven { url "https://jitpack.io" } 
     }
