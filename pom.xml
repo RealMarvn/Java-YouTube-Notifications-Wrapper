@@ -12,11 +12,6 @@
     <description>This is a wrapper for the yt data subscribe notification api</description>
     <url>https://github.com/RealMarvn/java-youtube-data-notification-wrapper</url>
 
-    <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.javalin</groupId>
