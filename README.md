@@ -8,34 +8,11 @@
 
 This is a simple wrapper for the YouTube Data API v3 notifications. As there are many people dont want to deal with this api , I decided to create a wrapper for you :D. Hope you like it.
 
-# 🎉 Basic Usage
-The following example shows you how to get notifications, subscribing to new channel and renewing the leasing time.
-```Java
-    int port = 8080;
-    int leaseSeconds = 60 * 60 * 24 * 7;
-    List<String> channelIdList = new ArrayList<>();
-
-    YouTubeSubscribeWrapper youTubeSubscribeWrapper = new YouTubeSubscribeWrapper();
-    youTubeSubscribeWrapper.subscribe("http://example.com", "UCJhjE7wbdYAae1G25m0tHAA", leaseSeconds);
-    youTubeSubscribeWrapper.renewSubscriptions("http://example.com", channelIdList,  864000);
-    youTubeSubscribeWrapper.start(feed -> {
-        if(feed.isNewVideo())
-            System.out.println("NEW VIDEO!");
-        
-
-        System.out.println(feed.getVideoId());
-        System.out.println(feed.getChannelId()
-        System.out.println(feed.getTitle());
-        System.out.println(feed.getLink());
-        System.out.println(feed.getAuthor());
-        }, port);
-```
-Note that maximum lease time is 10 days, this will require you to create your own re-subscription scheduler. There is also a method you can use which is called #renewSubscriptions().
-
  
 
 # 📦 Download / Installation
 The recommended way to get the wrapper is to use a build manager, like Gradle or Maven.
+
 Gradle
 ```java
  repositories { 
@@ -56,6 +33,34 @@ Maven
 ```
 
  
+
+
+# 🎉 Basic Usage
+The following example shows you how to get notifications, subscribing to new channel and renewing the leasing time.
+```Java
+    int port = 8080;
+    int leaseSeconds = 60 * 60 * 24 * 7;
+    List<String> channelIdList = new ArrayList<>();
+
+    YouTubeSubscribeWrapper youTubeSubscribeWrapper = new YouTubeSubscribeWrapper();
+    youTubeSubscribeWrapper.subscribe("http://example.com", "UCJhjE7wbdYAae1G25m0tHAA", leaseSeconds);
+    youTubeSubscribeWrapper.renewSubscriptions("http://example.com", channelIdList,  leaseSeconds);
+    youTubeSubscribeWrapper.start(feed -> {
+        if(feed.isNewVideo())
+            System.out.println("NEW VIDEO!");
+        
+
+        System.out.println(feed.getVideoId());
+        System.out.println(feed.getChannelId()
+        System.out.println(feed.getTitle());
+        System.out.println(feed.getLink());
+        System.out.println(feed.getAuthor());
+        }, port);
+```
+Note that maximum lease time is 10 days, this will require you to create your own re-subscription scheduler. There is also a method you can use which is called #renewSubscriptions().
+
+ 
+
 
 # 📒 GetUserData
 To get the user data from a specific youtube channel you need to use one of these two methods. You also require a Google API token which you can get at the Google Developer hub.
@@ -78,10 +83,10 @@ If you want to keep the cache clean you can just call the clearCache method.
 ```
 YouTube will sometimes send multiple times the same data.
 Thats why there is a cache.
-The cache saves the VideoIDs from every video so nothing gets posted multiple times.
+The cache saves the VideoIDs from every video so nothing gets triggerd multiple times.
 
 [Discord Badge]:
-https://shields.javacord.org/discord/534420861294346255.svg?label=Discord
+https://shields.javacord.org/discord/374907103539625986.svg?label=Discord
 [Supported Java Versions Badge]:
 https://shields.javacord.org/badge/Supported%20Java%20Versions-Java9+-lightgrey.svg
 [Latest Release]:
