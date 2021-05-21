@@ -20,14 +20,14 @@ repositories {
     maven { url "https://jitpack.io" } 
     }
     
-dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Data-Notifications-Wrapper:v1.0.3' }
+dependencies { implementation 'com.github.Realmarvn:Java-YouTube-Notifications-Wrapper:v1.0.3' }
 ```
 
 Maven
 ```java
 <dependency>
     <groupId>com.github.RealMarvn</groupId>
-    <artifactId>Java-YouTube-Data-Notifications-Wrapper</artifactId>
+    <artifactId>Java-YouTube-Notifications-Wrapperr</artifactId>
     <version>v1.0.3</version>
 </dependency>
 ```
